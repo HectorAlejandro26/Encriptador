@@ -1,5 +1,13 @@
 # ProyectoMetodos
 
+## Demostración
+
+A continuación, se muestra una demostración del funcionamiento del proyecto utilizando un ejemplo práctico:
+
+![Ejemplo de ejecución](./examples/example1.png)
+
+En este ejemplo, se puede observar cómo se realiza el proceso de cifrado y descifrado de un texto, verificando que el texto original y el descifrado sean iguales.
+
 # Documentación del Proyecto
 
 ## Archivos
