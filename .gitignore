@@ -1,6 +1,11 @@
 .venv
 .vscode
 __pycache__
-
 *.pdf
 sketches
+bin
+.vs
+obj
+Properties
+*.csproj.user
+.sln

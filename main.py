@@ -1,30 +1,32 @@
-from functions import *
-MD5_FLAG = True
-"""
-``True``: Usa MD5 para la clave (matriz 4x4), numeros entre [0x0 - 0xFF]\n
-``False``: Usa SHA-256 para la clave (matriz 8x8), numeros enttre [0x0 - 0xF]
-"""
+from functions import encrypt, decrypt
+import sys
 
 
-def main():
-    text = "Texto a encriptar."
-    key = "hola mundo"
+def main(args: list[str]):
+    sys.stdout.reconfigure(encoding='utf-8')
 
-    text_m = text_2_matrix(text, MD5_FLAG)
-    key_m = key_2_matrix(key, MD5_FLAG)
+    if len(args) < 5:
+        print(
+            "Error: Se esperaban 4 argumentos (func: bool, text: string, key: string, encode: bool)",
+            file=sys.stderr
+        )
+        exit(1)
+    func: bool = args[1].lower() == 'true'
+    text: str = args[2]
+    key: str = args[3]
+    encode: bool = args[4].lower() == 'true'
 
-    encrpited_m = text_m * key_m
-    encrpited = ''.join([chr(c) for c in encrpited_m.flat])
+    try:
+        if func:
+            result = encrypt(text, key, encode)
+        else:
+            result = decrypt(text, key, encode)
 
-    unencripted_m = encrpited_m * key_m.inv
-    unencripted = ''.join([num_2_str(c)
-                          for c in unencripted_m.flat]).strip('\0')
-
-    print("Texto original: ", text)  # ? Texto a encriptar.
-    print("Texto encriptado: ", encrpited)  # ? ䷦ⶏㇳ⻴鈭屁䄹匫傊㦺⸌㒰䙳㾌㖔ㄖ䀤咔┈⨞
-    print("Texto desencriptado: ", unencripted)  # ? Texto a encriptar.
-    print("Son iguales?", text == unencripted)  # * True
+        print(result)
+    except Exception as e:
+        print(f"Error en la ejecución: {e}", file=sys.stderr)
+        exit(1)
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
