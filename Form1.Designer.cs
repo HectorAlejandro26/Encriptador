@@ -38,6 +38,7 @@
 			SaveOnBtn = new Button();
 			SaveOnEntry = new TextBox();
 			StartBtn = new Button();
+			CancelBtn = new Button();
 			SuspendLayout();
 			// 
 			// KeyEntry
@@ -64,7 +65,7 @@
 			MD5KeyBtn.Location = new Point(12, 71);
 			MD5KeyBtn.Name = "MD5KeyBtn";
 			MD5KeyBtn.Size = new Size(50, 19);
-			MD5KeyBtn.TabIndex = 2;
+			MD5KeyBtn.TabIndex = 1;
 			MD5KeyBtn.TabStop = true;
 			MD5KeyBtn.Text = "MD5";
 			MD5KeyBtn.UseVisualStyleBackColor = true;
@@ -75,7 +76,7 @@
 			SHA256KeyBtn.Location = new Point(12, 96);
 			SHA256KeyBtn.Name = "SHA256KeyBtn";
 			SHA256KeyBtn.Size = new Size(71, 19);
-			SHA256KeyBtn.TabIndex = 3;
+			SHA256KeyBtn.TabIndex = 2;
 			SHA256KeyBtn.TabStop = true;
 			SHA256KeyBtn.Text = "SHA-256";
 			SHA256KeyBtn.UseVisualStyleBackColor = true;
@@ -94,7 +95,7 @@
 			OpenOnBtn.Location = new Point(8, 127);
 			OpenOnBtn.Name = "OpenOnBtn";
 			OpenOnBtn.Size = new Size(75, 23);
-			OpenOnBtn.TabIndex = 5;
+			OpenOnBtn.TabIndex = 3;
 			OpenOnBtn.Text = "Abrir...";
 			OpenOnBtn.UseVisualStyleBackColor = true;
 			OpenOnBtn.Click += OpenOnBtn_Click;
@@ -105,7 +106,7 @@
 			OpenOnEntry.Location = new Point(89, 127);
 			OpenOnEntry.Name = "OpenOnEntry";
 			OpenOnEntry.Size = new Size(233, 23);
-			OpenOnEntry.TabIndex = 6;
+			OpenOnEntry.TabIndex = 4;
 			OpenOnEntry.TextChanged += OpenOnEntry_TextChanged;
 			// 
 			// SaveOnBtn
@@ -130,20 +131,33 @@
 			// StartBtn
 			// 
 			StartBtn.Enabled = false;
-			StartBtn.Location = new Point(137, 185);
+			StartBtn.Location = new Point(247, 185);
 			StartBtn.Name = "StartBtn";
 			StartBtn.Size = new Size(75, 23);
-			StartBtn.TabIndex = 5;
+			StartBtn.TabIndex = 7;
 			StartBtn.Text = "Iniciar";
 			StartBtn.UseVisualStyleBackColor = true;
 			StartBtn.Click += StartBtn_Click;
 			// 
+			// CancelBtn
+			// 
+			CancelBtn.Location = new Point(166, 185);
+			CancelBtn.Name = "CancelBtn";
+			CancelBtn.Size = new Size(75, 23);
+			CancelBtn.TabIndex = 8;
+			CancelBtn.Text = "Cancelar";
+			CancelBtn.UseVisualStyleBackColor = true;
+			CancelBtn.Click += ClancelBtn_Click;
+			// 
 			// Encriptador
 			// 
+			AcceptButton = StartBtn;
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			CancelButton = CancelBtn;
 			ClientSize = new Size(334, 220);
 			Controls.Add(SaveOnEntry);
+			Controls.Add(CancelBtn);
 			Controls.Add(StartBtn);
 			Controls.Add(SaveOnBtn);
 			Controls.Add(OpenOnEntry);
@@ -155,6 +169,7 @@
 			Controls.Add(KeyEntry);
 			FormBorderStyle = FormBorderStyle.FixedSingle;
 			Name = "Encriptador";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Encriptador";
 			ResumeLayout(false);
 			PerformLayout();
@@ -172,5 +187,6 @@
 		private Button SaveOnBtn;
 		private TextBox SaveOnEntry;
 		private Button StartBtn;
+		private Button CancelBtn;
 	}
 }

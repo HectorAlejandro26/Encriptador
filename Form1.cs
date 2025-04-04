@@ -1,9 +1,13 @@
+using System.Diagnostics;
 using System.Text;
 
 namespace ProyectoMetodos;
 
 public partial class Encriptador : Form
 {
+	private const double Ratio = 0.75;
+	private readonly static string AllowedChars = "\0\n\rABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÁÉÍÓÚáéíóú@.,?-_/\\ ";
+
 	internal bool IsStartable
 	{
 		get
@@ -66,8 +70,45 @@ public partial class Encriptador : Form
 		string key = KeyEntry.Text;
 		bool encode = MD5KeyBtn.Checked;
 
-		string output = CallPython.Run(FuncPy.Decrypt, text, key, encode);
+		// Si son caracteres extraños, encriptar
+		// True: Encriptar
+		// False: Desencriptar
+		long tol = (long)Math.Ceiling(text.Length * Ratio);
+		long weirdChars = text.LongCount(c => !AllowedChars.Contains(c));
+		bool flag = tol >= weirdChars;
+
+		Debug.WriteLine("Iniciando " + (flag ? "encriptacion" : "desencriptacion"));
+
+		string output;
+		try
+		{
+			output = CallPython.Run(
+				flag ? FuncPy.Encrypt : FuncPy.Decrypt,
+				text,
+				key,
+				encode
+			);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show(
+				"Error: " + ex.Message,
+				"Error",
+				MessageBoxButtons.OK,
+				MessageBoxIcon.Error
+			);
+			return;
+		}
 
 		File.WriteAllText(SaveOnEntry.Text, output, Encoding.UTF8);
+
+		MessageBox.Show(
+			$"Proceso completado, archivo {(flag ? "encriptado" : "desencriptado")} y guardado en:\n{SaveOnEntry.Text}",
+			"Exito",
+			MessageBoxButtons.OK,
+			MessageBoxIcon.Information
+		);
 	}
+
+	private void ClancelBtn_Click(object sender, EventArgs e) => Close();
 }
