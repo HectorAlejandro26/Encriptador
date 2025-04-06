@@ -1,63 +1,42 @@
-# ProyectoMetodos
+# README - Encriptador de Texto 🔐
 
-## Demostración
+## Descripción
 
-A continuación, se muestra una demostración del funcionamiento del proyecto utilizando un ejemplo práctico:
+Aplicación de escritorio para **encriptar**/**desencriptar** archivos de texto usando operaciones matriciales con soporte para claves **MD5** y **SHA-256.**
 
-![Ejemplo de ejecución](./examples/example1.png)
+## Instalación Rápida
 
-En este ejemplo, se puede observar cómo se realiza el proceso de cifrado y descifrado de un texto, verificando que el texto original y el descifrado sean iguales.
+1. **Descargar** el archivo ZIP del proyecto
 
-# Documentación del Proyecto
+1. **Extraer** el contenido en una carpeta de su elección
 
-## Archivos
+1. **No se requieren pasos adicionales** - el paquete incluye todo lo necesario
 
-### `matrix.py`
-Este archivo contiene la implementación de una clase `Matrix` que permite trabajar con matrices de manera eficiente. Incluye métodos para realizar operaciones comunes como determinantes, transposición, adjunta, inversa, multiplicación, escalado, y más. También soporta operaciones avanzadas como la expansión por cofactores y el método de Sarrus para calcular determinantes.
+## Características Clave
+- ✔️ **Todo-en-uno**: Incluye ejecutables y entorno virtual Python integrado
+- ✔️ **Portable**: No requiere instalación de Python u otras dependencias
+- ✔️ **Interfaz intuitiva**: Fácil de usar con selección de archivos gráfica
+- ✔️ **Detección automática**: Reconoce si el archivo necesita encriptación o desencriptación
 
-#### Principales características:
-- **Clase `Matrix`:**
-    - Propiedades:
-        - `Matrix`: Obtiene o establece la matriz.
-        - `is_square`: Verifica si la matriz es cuadrada.
-        - `n_rows`, `n_cols`: Obtiene el número de filas y columnas.
-        - `det`: Calcula el determinante de la matriz.
-        - `T`: Devuelve la transpuesta de la matriz.
-        - `adj`: Calcula la matriz adjunta.
-        - `inv`: Calcula la matriz inversa.
-        - `flat`: Devuelve una lista con los elementos de la matriz en orden plano.
-    - Métodos:
-        - `get_item`, `set_item`: Obtiene o establece un elemento específico.
-        - `get_row`, `get_col`: Obtiene una fila o columna específica.
-        - `set_row`, `set_col`: Establece una fila o columna específica.
-        - `scale_item`, `scale_row`, `scale_col`: Escala un elemento, fila o columna por un escalar.
-        - `divide_matrix`: Divide la matriz en submatrices excluyendo filas o columnas específicas.
-        - `dot`: Realiza el producto punto entre matrices.
-        - Métodos estáticos:
-            - `_expansion_cofactors`: Calcula el determinante usando expansión por cofactores.
-            - `_sarrus`: Calcula el determinante usando el método de Sarrus para matrices de 3x3 o menores.
-    - Sobrecarga de operadores:
-        - `__mul__`: Multiplicación por escalar o por otra matriz.
-        - `__truediv__`: División por escalar.
-        - `__repr__`: Representación en cadena de la matriz.
+## Cómo Usar
 
----
+1. **Ejecutar** *ProyectoMetodos.exe* (en la carpeta extraída)
+1. **Ingresar** una clave de cifrado
+1. **Seleccionar** método de hash (MD5 o SHA-256)
+1. **Elegir** archivo de origen con "Abrir..."
+1. **Especificar** archivo destino con "Guardar..."
+1. **Clic** en "Iniciar" para procesar
 
-### `functions.py`
-Este archivo contiene funciones auxiliares para trabajar con cadenas de texto y matrices. Incluye métodos para convertir cadenas en matrices y viceversa, así como para generar matrices a partir de claves hash.
+## Requisitos del Sistema
 
-#### Principales funciones:
-- **`num_2_str(n: int) -> str`:**
-    Convierte un número entero en un carácter basado en un conjunto predefinido de caracteres. Si el número no es válido, devuelve un carácter desconocido (`░`).
+- Windows 10 o superior
+- Sistema de x64 bits
 
-- **`str_2_num(s: str) -> int`:**
-    Convierte un carácter en su índice numérico dentro de un conjunto predefinido de caracteres. Si el carácter no pertenece al conjunto, devuelve un valor desconocido (`-1`).
+## Notas Importantes
+- 🔐 Use la misma clave y método hash para desencriptar que usó para encriptar
+- 📁 Los archivos procesados se guardan en UTF-8
+- ⚠️ Mantenga toda la estructura de carpetas para el correcto funcionamiento
 
-- **`key_2_matrix(s: str, md5_flag: bool = True) -> Matrix`:**
-    Convierte una cadena en una matriz de enteros basada en su hash MD5 (4x4) o SHA-256 (8x8). Útil para generar claves de cifrado.
+#
 
-- **`text_2_matrix(data: str, md5_flag: bool = True, fill_value: str = '\0') -> Matrix`:**
-    Convierte una cadena de texto en una matriz numérica de tamaño `Nx4` (MD5) o `Nx8` (SHA-256). Si la longitud de la cadena no es múltiplo del número de columnas, se rellena con un valor especificado (`\0` por defecto).
-
-#### Uso:
-Estas funciones son útiles para aplicaciones que requieren manipulación de texto y matrices, como cifrado, análisis de datos o procesamiento numérico.
+Este paquete autónomo permite usar la aplicación inmediatamente sin necesidad de configuraciones adicionales.
