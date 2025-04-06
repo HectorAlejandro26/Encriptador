@@ -1,4 +1,4 @@
-# README - Encriptador de Texto 🔐
+# Encriptador de Texto 🔐
 
 ## Descripción
 
