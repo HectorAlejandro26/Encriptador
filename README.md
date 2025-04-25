@@ -1,42 +1,37 @@
-# Encriptador de Texto 🔐
+# Proyecto Métodos - Aplicación de Escritorio
 
-## Descripción
+**Versión:** 1.0.0  
+**Autor:** Alex  
+**Requisitos:** Windows 10 o superior (64 bits)
 
-Aplicación de escritorio para **encriptar**/**desencriptar** archivos de texto usando operaciones matriciales con soporte para claves **MD5** y **SHA-256.**
+---
 
-## Instalación Rápida
+## 📦 Contenido del paquete
 
-1. **Descargar** el archivo ZIP del proyecto
+- `ProyectoMetodos.exe` → El programa principal  
+- `venv/` → Entorno de Python interno (no requiere instalación externa)  
+- Archivos `.dll` → Librerías necesarias para que el programa funcione  
+- Archivos `.py` → Scripts utilizados por la aplicación  
 
-1. **Extraer** el contenido en una carpeta de su elección
+---
 
-1. **No se requieren pasos adicionales** - el paquete incluye todo lo necesario
+## 🚀 Instrucciones de uso
 
-## Características Clave
-- ✔️ **Todo-en-uno**: Incluye ejecutables y entorno virtual Python integrado
-- ✔️ **Portable**: No requiere instalación de Python u otras dependencias
-- ✔️ **Interfaz intuitiva**: Fácil de usar con selección de archivos gráfica
-- ✔️ **Detección automática**: Reconoce si el archivo necesita encriptación o desencriptación
+1. **Descomprime** todo el contenido del archivo `.zip` en cualquier carpeta.  
+   _Ejemplo_: `C:\MisProgramas\ProyectoMetodos\`
 
-## Cómo Usar
+2. **Ejecuta el archivo**  
+   ```bash
+   ProyectoMetodos.exe
+   ```
 
-1. **Ejecutar** *ProyectoMetodos.exe* (en la carpeta extraída)
-1. **Ingresar** una clave de cifrado
-1. **Seleccionar** método de hash (MD5 o SHA-256)
-1. **Elegir** archivo de origen con "Abrir..."
-1. **Especificar** archivo destino con "Guardar..."
-1. **Clic** en "Iniciar" para procesar
+3. La aplicación funcionará **sin necesidad de instalar .NET o Python**.
 
-## Requisitos del Sistema
+---
 
-- Windows 10 o superior
-- Sistema de x64 bits
+## ❓ ¿Problemas comunes?
+- Asegúrate de no mover ni eliminar archivos del interior.
+- Si ves mensajes de `Error de DLL` o `No se encuentra Python`, probablemente faltan archivos o el entorno está incompleto.
+- No necesitas instalar nada adicional. No uses tu propio Python ni edites el `venv`.
 
-## Notas Importantes
-- 🔐 Use la misma clave y método hash para desencriptar que usó para encriptar
-- 📁 Los archivos procesados se guardan en UTF-8
-- ⚠️ Mantenga toda la estructura de carpetas para el correcto funcionamiento
-
-#
-
-Este paquete autónomo permite usar la aplicación inmediatamente sin necesidad de configuraciones adicionales.
+---
