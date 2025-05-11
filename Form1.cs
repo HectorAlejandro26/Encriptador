@@ -9,9 +9,6 @@ public partial class Encriptador : Form
     private static readonly Size postProcessSize = new(350, 459);
     private const int Sep = 20;
 
-    private const double Ratio = 0.75;
-    private static readonly string AllowedChars = "\0\n\rABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÁÉÍÓÚáéíóú@.,?-_/\\ ";
-
     private string input = string.Empty;
     private string result = string.Empty;
 
@@ -123,24 +120,16 @@ public partial class Encriptador : Form
     {
         input = File.ReadAllText(OpenOnEntry.Text, Encoding.UTF8);
         string key = KeyEntry.Text;
-        bool encode = MD5KeyBtn.Checked;
-
-        // Si son caracteres extraños, encriptar
-        // True: Encriptar
-        // False: Desencriptar
-        long tol = (long)Math.Ceiling(input.Length * Ratio);
-        long weirdChars = input.LongCount(c => !AllowedChars.Contains(c));
-        bool flag = tol >= weirdChars;
-
-        Debug.WriteLine("Iniciando " + (flag ? "encriptación" : "desencriptación"));
+        string encode = MD5KeyBtn.Checked ? "md5" : "sha256";
+        ResultType rType;
 
         try
         {
             result = CallPython.Run(
-                flag ? FuncPy.Encrypt : FuncPy.Decrypt,
                 input,
                 key,
-                encode
+                encode,
+                out rType
             );
         }
         catch (Exception ex)
@@ -163,7 +152,7 @@ public partial class Encriptador : Form
         AddPanel();
 
         MessageBox.Show(
-            $"Proceso completado, archivo {(flag ? "encriptado" : "desencriptado")} y guardado en:\n{SaveOnEntry.Text}",
+            $"Proceso completado, {(rType.HasFlag(ResultType.Encrypted) ? "encriptado" : "desencriptado")} y archivo guardado en:\n{SaveOnEntry.Text}",
             "Éxito",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information

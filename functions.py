@@ -1,9 +1,6 @@
 from matrix import Matrix
 from hashlib import md5, sha256
-
-_CHARS = "\0\n\rABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ÁÉÍÓÚáéíóú@.,?-_/\\ "
-_UNKOWN_CHAR = '⍰'
-_UNKOWN_INT = -1
+from constants import VALID_CHARS, UNKOWN_INT, UNKOWN_CHAR
 
 
 def _hash_to_matrix(s: str, md5_flag: bool) -> list[list[int]]:
@@ -24,12 +21,12 @@ def _hash_to_matrix(s: str, md5_flag: bool) -> list[list[int]]:
 
 def _char_to_int(c: str) -> int:
     """Convierte un carácter a su índice en _CHARS, o retorna _UNKOWN_INT si no está presente."""
-    return _CHARS.index(c) if c in _CHARS else _UNKOWN_INT
+    return VALID_CHARS.index(c) if c in VALID_CHARS else UNKOWN_INT
 
 
 def _int_to_char(n: int) -> str:
     """Convierte un número en un carácter basado en _CHARS, manejando valores desconocidos."""
-    return _CHARS[n % len(_CHARS)] if n >= 0 else _UNKOWN_CHAR
+    return VALID_CHARS[n % len(VALID_CHARS)] if n >= 0 else UNKOWN_CHAR
 
 
 def num_2_str(n: int) -> str:
