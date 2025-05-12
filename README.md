@@ -1,7 +1,7 @@
 # Proyecto Métodos - Aplicación de Escritorio
 
 **Versión:** 1.0.0  
-**Autor:** Alex  
+**Autor:** Héctor Alejandro Meléndez Torres  
 **Requisitos:** Windows 10 o superior (64 bits)
 
 ---
