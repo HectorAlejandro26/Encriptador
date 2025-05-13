@@ -1,5 +1,4 @@
-from functions import encrypt, decrypt
-from constants import VALID_CHARS
+from functions import encrypt, decrypt, VALID_CHARS
 import sys
 
 
@@ -16,11 +15,14 @@ def main(args: list[str]):
             file=sys.stderr
         )
         sys.exit(-1)
+
     text: str = args[1]
     key: str = args[2]
+
     if args[3].lower() not in ["sha256", "md5"]:
         print("Error: hashType debe ser sha256 o md5", file=sys.stderr)
         sys.exit(-1)
+
     hash_type: bool = args[3].lower() == "md5"
 
     try:
@@ -40,12 +42,14 @@ def main(args: list[str]):
 
         else:
             raise ValueError(
-                "El texto es ambiguo, no se sabe s cifrar o desifrar\n"
-                "Intente usar caracteres mas comunes."
+                "El texto es ambiguo, no se sabe si cifrar o descifrar.\n"
+                "Intente usar caracteres más comunes."
             )
+
         print(result, end='', file=sys.stdout)
         print(f"in: {len(text)}\tout: {len(result)}", file=sys.stderr)
         sys.exit(exit_code)
+
     except Exception as e:
         print(f"Error en la ejecución: {e}", file=sys.stderr)
         sys.exit(-1)

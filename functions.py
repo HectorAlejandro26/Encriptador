@@ -1,78 +1,78 @@
-from matrix import Matrix
+import numpy as np
 from hashlib import md5, sha256
-from constants import VALID_CHARS, UNKOWN_INT, UNKOWN_CHAR
+from string import (
+    ascii_letters as asci,
+    digits as dig,
+    punctuation as pt,
+    whitespace as ws,
+    printable as prnt
+)
+
+VALID_CHARS = "".join(
+    sorted(set("\0" + asci + dig + pt + ws + prnt)))
+
+# Rango de suplentes a evitar
+SURROGATE_RANGE = range(0xD800, 0xE000)
 
 
-def key_2_matrix(s: str, md5_flag: bool = True) -> Matrix:
-    hashcode = (
-        md5(s.encode()) if md5_flag else sha256(s.encode())
-    ).hexdigest()
-
-    size = 4 if md5_flag else 8
-    step = 2 if md5_flag else 1
-
-    # Le da el formato de:
-    # 4x4 <= md5
-    # 8x8 <= sha256
-    key_m_as_list = [
-        [int(hashcode[(i * size + j) * step:(i * size + j) * step + step], 16)
-         for j in range(size)]
-        for i in range(size)
-    ]
-
-    return Matrix(key_m_as_list)
+def key_2_matrix(s: str, md5_flag: bool = True) -> np.ndarray:
+    hashcode = (md5(s.encode()) if md5_flag else sha256(
+        s.encode())).hexdigest()
+    size = 3
+    values = [int(hashcode[i:i+2], 16) % len(VALID_CHARS)
+              for i in range(0, size * size * 2, 2)]
+    return np.array(values, dtype=int).reshape((size, size))
 
 
-def encrypt(text: str, key: str, md5_flag: bool) -> str:
-    def char_2_int(c):
-        return VALID_CHARS.index(c) if c in VALID_CHARS else UNKOWN_INT
+def encrypt(text: str, key: str, md5_flag: bool = True) -> str:
+    def letras_nums(cadena: str):
+        return np.array([VALID_CHARS.index(c) for c in cadena])
 
-    # Convierte el texto a una lista de números
-    numeric_data = [char_2_int(c) for c in text]
-    n_cols = 4 if md5_flag else 8  # Si usa md5 4x4, si usa sha256 8x8
-    num_rows = (len(numeric_data) + n_cols - 1) // n_cols
-    padded_data = numeric_data + \
-        [char_2_int('\0')] * (num_rows * n_cols - len(numeric_data))
+    def int_str(lista: list[int]):
+        result = []
+        for n in lista:
+            while n in SURROGATE_RANGE:
+                n = (n + 0x800) % 0x10000  # Saltar el rango suplente
+            result.append(n)
+        return "".join(chr(n) for n in result)
 
-    # Convierte el texto a una matriz numerica
-    matrix_as_list = [
-        padded_data[i * n_cols: (i + 1) * n_cols] for i in range(num_rows)]
-    text_m = Matrix(matrix_as_list)
-
-    # Se asegura de que la clave tenga el mismo tamaño que la matriz de texto
     key_m = key_2_matrix(key, md5_flag)
-    encrypted_m = text_m * key_m
+    text_nums = letras_nums(text)
 
-    encrypted_text = "".join(map(chr, encrypted_m.flat))
+    # Acomodar en matriz 3xN
+    mod = len(text_nums) % key_m.shape[0]
+    if mod != 0:
+        text_nums = np.append(
+            text_nums, [0] * (key_m.shape[0] - mod))
 
-    return encrypted_text.strip('\0')
+    text_m = np.reshape(text_nums, (key_m.shape[0], -1))
+    encrypted_m = np.dot(key_m, text_m)
+
+    return int_str(encrypted_m.flatten())
 
 
-def decrypt(text: str, key: str, md5_flag: bool) -> str:
-    encrypted = [ord(c) for c in text]
-    n_cols = 4 if md5_flag else 8
-    num_rows = len(encrypted) // n_cols
-    encrypted_m = Matrix(
-        [
-            encrypted[i * n_cols: (i + 1) * n_cols]
-            for i in range(num_rows)
-        ]
-    )
+def decrypt(text: str, key: str, md5_flag: bool = True) -> str:
+    def nums_letras(lista: list[int]):
+        return "".join(VALID_CHARS[n % len(VALID_CHARS)] for n in lista)
 
-    key_m_inv = key_2_matrix(key, md5_flag).inv
-    if key_m_inv is None:
-        raise ValueError(
-            "La clave no es válida para descifrar (no invertible)."
-        )
+    def str_int(cadena: str):
+        return np.array([ord(c) for c in cadena])
 
-    decrypted_m = encrypted_m * key_m_inv
+    key_m = key_2_matrix(key, md5_flag)
+    text_nums = str_int(text)
 
-    decrypted_text = "".join(
-        map(
-            lambda n:
-            VALID_CHARS[n % len(VALID_CHARS)] if n >= 0 else UNKOWN_CHAR,
-            decrypted_m.flat
-        )
-    )
+    # Acomodar matriz en 3xN
+    mod = len(text_nums) % key_m.shape[0]
+    if mod != 0:
+        text_nums = np.append(text_nums, [0] * (key_m.shape[0] - mod))
 
-    return decrypted_text.strip('\0')
+    text_m = np.reshape(text_nums, (key_m.shape[0], -1))
+
+    try:
+        key_m_inv = np.linalg.inv(key_m)
+    except np.linalg.LinAlgError:
+        raise ValueError("La clave no es válida (no invertible).")
+
+    decrypted_m = np.rint(np.dot(key_m_inv, text_m)).astype(int)
+
+    return nums_letras(decrypted_m.flatten()).strip("\0")

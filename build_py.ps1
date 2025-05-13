@@ -1,4 +1,4 @@
-if (-not Test-Path "./bin_py") {
+if (-not (Test-Path "./bin_py")) {
     New-Item -Type Directory ./bin_py
 }
 
