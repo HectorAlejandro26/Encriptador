@@ -1,4 +1,4 @@
-# ![Logo de la aplicación](./Resources/logo32.ico) Encriptador de Texto - Proyecto Métodos
+# Encriptador de Texto - Proyecto Métodos
 
 **Versión:** 3.0.0  
 **Autor:** Héctor Alejandro Meléndez Torres  
