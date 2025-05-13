@@ -7,7 +7,7 @@ def main(args: list[str]):
     sys.stdout.reconfigure(encoding='utf-8')
     # 60% caracteres válidos para considerar cifrado
     MIN_ENCRYPT_RATIO = 0.60
-    # 70% caracteres inválidos (30% válidos) para considerar descifraf
+    # 70% caracteres inválidos (30% válidos) para considerar decifrar
     MIN_DECRYPT_RATIO = 0.30
 
     if len(args) < 4:
