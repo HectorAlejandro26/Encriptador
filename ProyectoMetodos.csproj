@@ -10,6 +10,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>Resources\logo64.ico</ApplicationIcon>
     <Configurations>Debug;Release</Configurations>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -56,7 +57,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir).venv&quot; &quot;$(OutDir).venv&quot; /E /I /Y" />
+    <Exec Command="xcopy &quot;$(ProjectDir)bin_py\HillCipher.exe&quot; $(OutDir) /D /Y" />
   </Target>
 
 </Project>

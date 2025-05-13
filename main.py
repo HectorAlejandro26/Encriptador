@@ -15,12 +15,12 @@ def main(args: list[str]):
             "Error: Se esperaban 3 argumentos (text: string, key: string, hashType: string)",
             file=sys.stderr
         )
-        exit(-1)
+        sys.exit(-1)
     text: str = args[1]
     key: str = args[2]
     if args[3].lower() not in ["sha256", "md5"]:
         print("Error: hashType debe ser sha256 o md5", file=sys.stderr)
-        exit(-1)
+        sys.exit(-1)
     hash_type: bool = args[3].lower() == "md5"
 
     try:
@@ -45,10 +45,10 @@ def main(args: list[str]):
             )
         print(result, end='', file=sys.stdout)
         print(f"in: {len(text)}\tout: {len(result)}", file=sys.stderr)
-        exit(exit_code)
+        sys.exit(exit_code)
     except Exception as e:
         print(f"Error en la ejecución: {e}", file=sys.stderr)
-        exit(-1)
+        sys.exit(-1)
 
 
 if __name__ == "__main__":

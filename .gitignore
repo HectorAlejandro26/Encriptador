@@ -4,8 +4,12 @@ __pycache__
 *.pdf
 sketches
 bin
+bin_py
 .vs
 obj
 Properties
 *.csproj.user
-.sln
+*.spec
+pyinstaller_temp
+.github
+build_py.ps1
