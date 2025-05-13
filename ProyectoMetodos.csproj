@@ -38,6 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="bin_py\HillCipher.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="constants.py">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
@@ -58,9 +61,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin_py\HillCipher.exe&quot; $(OutDir) /D /Y" />
-  </Target>
 
 </Project>

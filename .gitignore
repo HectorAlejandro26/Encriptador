@@ -9,7 +9,5 @@ bin_py
 obj
 Properties
 *.csproj.user
-*.spec
 pyinstaller_temp
 .github
-build_py.ps1
