@@ -10,7 +10,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>Resources\logo64.ico</ApplicationIcon>
     <Configurations>Debug;Release</Configurations>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
